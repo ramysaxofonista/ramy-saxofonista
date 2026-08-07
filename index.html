@@ -3,29 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ramy Saxofonista</title>
+    <title>RAMY Saxofonista</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
-<body style="background:#111;color:white;font-family:Arial;text-align:center;">
 
-    <h1>🎷 Ramy Saxofonista</h1>
+<body>
 
-    <p>Música en vivo para bodas, XV años, eventos sociales y corporativos.</p>
+<header>
+    <h1>🎷 RAMY Saxofonista</h1>
 
-    <h2>Repertorio</h2>
+    <p>Música en vivo para bodas, XV años, aniversarios y eventos corporativos.</p>
 
-    <button onclick="document.getElementById('demo1').play()">
-        ▶ Escuchar Careless Whisper
-    </button>
+    <input
+        type="text"
+        id="buscador"
+        placeholder="🔎 Buscar canción..."
+        style="padding:10px;width:80%;max-width:400px;border-radius:8px;border:none;">
+</header>
 
-    <audio id="demo1">
-        <source src="audio/careless-whisper.mp3" type="audio/mpeg">
-    </audio>
+<section id="listaCanciones">
 
-    <br><br>
+<div class="cancion">
+<h3>Careless Whisper</h3>
 
-    <a href="https://wa.me/9811415935">
-        <button>📲 Solicitar cotización</button>
-    </a>
+<button onclick="reproducir('audio1')">
+▶ Escuchar
+</button>
+
+<audio id="audio1">
+<source src="audio/careless-whisper.mp3" type="audio/mpeg">
+</audio>
+
+</div>
+
+
+<div class="cancion">
+
+<h3>Bésame Mucho</h3>
+
+<button onclick="reproducir('audio2')">
+▶ Escuchar
+</button>
+
+<audio id="audio2">
+<source src="audio/besame-mucho.mp3" type="audio/mpeg">
+</audio>
+
+</div>
+
+
+<div class="cancion">
+
+<h3>Perfect - Ed Sheeran</h3>
+
+<button onclick="reproducir('audio3')">
+▶ Escuchar
+</button>
+
+<audio id="audio3">
+<source src="audio/perfect.mp3" type="audio/mpeg">
+</audio>
+
+</div>
+
+</section>
+
+<br>
+
+<a href="https://wa.me/521XXXXXXXXXX">
+
+<button>
+
+📲 Solicitar cotización
+
+</button>
+
+</a>
+
+<script src="script.js"></script>
 
 </body>
 </html>
