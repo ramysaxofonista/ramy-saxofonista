@@ -1,327 +1,500 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RAMY Saxofonista</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<header>
+  <h1>🎷 RAMY Saxofonista</h1>
+  <p>Música en vivo para bodas, XV años, aniversarios y eventos corporativos</p>
+  <input type="text" placeholder="Buscar canción...">
+</header>
 
-  <header>
-    <h1>🎷 RAMY Saxofonista</h1>
-    <p>Música en vivo para bodas, XV años, aniversarios y eventos corporativos.</p>
-    <input type="text" placeholder="Buscar canción...">
-  </header>
+<script>
+const temporizadores = {};
 
-  <main class="lista-canciones">
+function toggleAudio(idAudio) {
+  const audio = document.getElementById(idAudio);
+  
+  // Limpiar cualquier efecto anterior
+  if (temporizadores[idAudio]) {
+    clearInterval(temporizadores[idAudio]);
+    delete temporizadores[idAudio];
+  }
 
-    <section class="genero-seccion">
-      <h2>Balada Romántica / Pop en Español</h2>
-      
-      <div class="cancion-card">
-        <span>Así Fue – Juan Gabriel</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Cama Y Mesa – Roberto Carlos</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Historia Entre Tus Dedos – Gianluca Grignani</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Hasta Que Me Olvides – Luis Miguel</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>La Cosa Más Bella – Eros Ramazzotti</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>La Ladrona – Diego Verdaguer</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>No Te Apartes De Mí – Roberto Carlos</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Por Debajo De La Mesa – Luis Miguel</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Qué Será De Ti – Roberto Carlos</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Tu Falta De Querer – Mon Laferte</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Tu Forma De Ser – Alberto y Roberto</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-    </section>
+  // Si está sonando → Detener con bajada suave
+  if (!audio.paused) {
+    let vol = audio.volume;
+    temporizadores[idAudio] = setInterval(() => {
+      vol -= 0.05;
+      audio.volume = vol;
+      if (vol <= 0) {
+        clearInterval(temporizadores[idAudio]);
+        delete temporizadores[idAudio];
+        audio.pause();
+        audio.currentTime = 0;
+        audio.volume = 0; // Listo para subir después
+      }
+    }, 80);
+  } 
+  // Si está detenido → Reproducir con subida suave
+  else {
+    audio.currentTime = 0;
+    audio.volume = 0;
+    audio.play();
+    
+    let vol = 0;
+    temporizadores[idAudio] = setInterval(() => {
+      vol += 0.05;
+      audio.volume = vol;
+      if (vol >= 1) {
+        clearInterval(temporizadores[idAudio]);
+        delete temporizadores[idAudio];
+      }
+    }, 80);
+  }
+}
+</script>
 
-    <section class="genero-seccion">
-      <h2>Bolero</h2>
-      <div class="cancion-card">
-        <span>Bésame Mucho – Los Panchos</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>No Me Platiques Más – Luis Miguel</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Quizás, Quizás, Quizás – Los Panchos</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Reloj – Luis Miguel</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Sabor A Mí – Luis Miguel</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-    </section>
+<main class="lista-canciones">
 
-    <section class="genero-seccion">
-      <h2>Pop / Balada en Inglés</h2>
-      <div class="cancion-card">
-        <span>A Thousand Years – Christina Perri</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Always Remember Us This Way – Lady Gaga</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Another Love – Tom Odell</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Chiquitita – ABBA</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Die With A Smile – Lady Gaga & Bruno Mars</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Flowers – Miley Cyrus</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Hallelujah – Alexandra Burke</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>How Deep Is Your Love – Bee Gees</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>I Don't Want To Miss A Thing – Aerosmith</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>I Want To Know What Love Is – Foreigner</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Imagine – John Lennon</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Let It Be – The Beatles</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Nothing's Gonna Change My Love For You – George Benson</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Perfect – Ed Sheeran</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Someone You Loved – Lewis Capaldi</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>The Power Of Love – Celine Dion</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Until I Found You – Stephen Sanchez</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Without You – Mariah Carey</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>You And I – Michael Bublé</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-    </section>
+  <!-- Balada Romántica / Pop en Español -->
+  <section class="genero-seccion">
+    <h2>Balada Romántica / Pop en Español</h2>
 
-    <section class="genero-seccion">
-      <h2>Pop / Rock Clásico</h2>
-      <div class="cancion-card">
-        <span>Careless Whisper – George Michael</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Every Breath You Take – The Police</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Hymn For The Weekend – Coldplay</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Lost On You – LP</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Love Me Like You Do – Ellie Goulding</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Será Porque Te Amo – Ricchi E Poveri</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Stand By Me – The Beatles</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Viva La Vida – Coldplay</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-    </section>
+    <div class="cancion-card">
+      <span>Así Fue – Juan Gabriel</span>
+      <audio id="audio1" src=https://drive.google.com/file/d/1RwrrCgvBOpc6VKyZJEmeC-cxteRRqnMv/view?usp=drive_link">
+      <button class="btn-escuchar" onclick="toggleAudio('audio1')">▶ Escuchar</button>
+    </div>
 
-    <section class="genero-seccion">
-      <h2>Música Regional Mexicana</h2>
-      <div class="cancion-card">
-        <span>El Color De Tus Ojos – Banda MS / El Recodo</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>En Privado – Xavi</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>La Mejor De Todas – Banda El Recodo</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Me Gustas – Joan Sebastian</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Mi Razón De Ser (Versión Piano) – Banda MS</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Primera Cita – Carin León</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Que Vuelvas – Grupo Frontera & Carin León</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Si Te Pudiera Mentir – Marco Antonio Solís</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-    </section>
+    <div class="cancion-card">
+      <span>Cama Y Mesa – Roberto Carlos</span>
+      <audio id="audio2" src=https://drive.google.com/file/d/1OMKGz3FxApU6ZTNJtoAWDdx2MQhGZvhL/view?usp=drive_link>
+      <button class="btn-escuchar" onclick="toggleAudio('audio2')">▶ Escuchar</button>
+    </div>
 
-    <section class="genero-seccion">
-      <h2>Jazz / Traditional Pop / Clásicos</h2>
-      <div class="cancion-card">
-        <span>Fly Me To The Moon – Frank Sinatra</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>La Vie En Rose – Louis Armstrong / Edith Piaf</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>What A Wonderful World – Louis Armstrong</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-    </section>
+    <div class="cancion-card">
+      <span>Historia Entre Tus Dedos – Gianluca Grignani</span>
+      <audio id="audio3" src=https://drive.google.com/file/d/1VvYxpCJfpQmxg2Ww9vhWir97enjsD-wb/view?usp=drive_link>
+      <button class="btn-escuchar" onclick="toggleAudio('audio3')">▶ Escuchar</button>
+    </div>
 
-    <section class="genero-seccion">
-      <h2>Pop Latino / Urbano</h2>
-      <div class="cancion-card">
-        <span>Brillas – León Larregui</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Si Antes Te Hubiera Conocido – Karol G</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Despacito – Luis Fonsi</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-    </section>
+    <div class="cancion-card">
+      <span>Hasta Que Me Olvides – Luis Miguel</span>
+      <audio id="audio4" src=https://drive.google.com/file/d/1SfOhaJnFwNCBDun35naQRpkLnkbqkBG3/view?usp=drive_link>
+      <button class="btn-escuchar" onclick="toggleAudio('audio4')">▶ Escuchar</button>
+    </div>
 
-    <section class="genero-seccion">
-      <h2>Bachata</h2>
-      <div class="cancion-card">
-        <span>Bachata Rosa (Versión Piano) – Juan Luis Guerra</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Darte Un Beso – Prince Royce</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-    </section>
+    <div class="cancion-card">
+      <span>La Cosa Más Bella – Eros Ramazzotti</span>
+      <audio id="audio5" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio5')">▶ Escuchar</button>
+    </div>
 
-    <section class="genero-seccion">
-      <h2>Música Electrónica / Dance / Synth-Pop</h2>
-      <div class="cancion-card">
-        <span>Blinding Lights (Versión Piano) – The Weeknd</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Titanium – David Guetta ft. Sia</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>Unstoppable – Sia</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-      <div class="cancion-card">
-        <span>We Found Love – Rihanna ft. Calvin Harris</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-    </section>
+    <div class="cancion-card">
+      <span>La Ladrona – Diego Verdaguer</span>
+      <audio id="audio6" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio6')">▶ Escuchar</button>
+    </div>
 
-    <section class="genero-seccion">
-      <h2>Reggae</h2>
-      <div class="cancion-card">
-        <span>Tú Sin Mí – Dread Mar I</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-    </section>
+    <div class="cancion-card">
+      <span>No Te Apartes De Mí – Roberto Carlos</span>
+      <audio id="audio7" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio7')">▶ Escuchar</button>
+    </div>
 
-    <section class="genero-seccion">
-      <h2>Música Cristiana</h2>
-      <div class="cancion-card">
-        <span>Un Pacto Con Dios – Rabito</span>
-        <button class="btn-escuchar">▶ Escuchar</button>
-      </div>
-    </section>
+    <div class="cancion-card">
+      <span>Por Debajo De La Mesa – Luis Miguel</span>
+      <audio id="audio8" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio8')">▶ Escuchar</button>
+    </div>
 
-  </main>
+    <div class="cancion-card">
+      <span>Qué Será De Ti – Roberto Carlos</span>
+      <audio id="audio9" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio9')">▶ Escuchar</button>
+    </div>
 
-</body>
-</html>
+    <div class="cancion-card">
+      <span>Tu Falta De Querer – Mon Laferte</span>
+      <audio id="audio10" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio10')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Tu Forma De Ser – Alberto y Roberto</span>
+      <audio id="audio11" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio11')">▶ Escuchar</button>
+    </div>
+  </section>
+
+  <!-- Bolero -->
+  <section class="genero-seccion">
+    <h2>Bolero</h2>
+
+    <div class="cancion-card">
+      <span>Bésame Mucho – Los Panchos</span>
+      <audio id="audio12" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio12')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>No Me Platiques Más – Luis Miguel</span>
+      <audio id="audio13" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio13')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Quizás, Quizás, Quizás – Los Panchos</span>
+      <audio id="audio14" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio14')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Reloj – Luis Miguel</span>
+      <audio id="audio15" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio15')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Sabor A Mí – Luis Miguel</span>
+      <audio id="audio16" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio16')">▶ Escuchar</button>
+    </div>
+  </section>
+
+  <!-- Pop / Balada en Inglés -->
+  <section class="genero-seccion">
+    <h2>Pop / Balada en Inglés</h2>
+
+    <div class="cancion-card">
+      <span>A Thousand Years – Christina Perri</span>
+      <audio id="audio17" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio17')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Always Remember Us This Way – Lady Gaga</span>
+      <audio id="audio18" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio18')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Another Love – Tom Odell</span>
+      <audio id="audio19" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio19')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Chiquitita – ABBA</span>
+      <audio id="audio20" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio20')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Die With A Smile – Lady Gaga & Bruno Mars</span>
+      <audio id="audio21" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio21')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Flowers – Miley Cyrus</span>
+      <audio id="audio22" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio22')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Hallelujah – Alexandra Burke</span>
+      <audio id="audio23" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio23')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>How Deep Is Your Love – Bee Gees</span>
+      <audio id="audio24" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio24')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>I Don't Want To Miss A Thing – Aerosmith</span>
+      <audio id="audio25" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio25')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>I Want To Know What Love Is – Foreigner</span>
+      <audio id="audio26" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio26')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Imagine – John Lennon</span>
+      <audio id="audio27" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio27')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Let It Be – The Beatles</span>
+      <audio id="audio28" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio28')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Nothing's Gonna Change My Love For You – George Benson</span>
+      <audio id="audio29" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio29')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Perfect – Ed Sheeran</span>
+      <audio id="audio30" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio30')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Someone You Loved – Lewis Capaldi</span>
+      <audio id="audio31" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio31')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>The Power Of Love – Celine Dion</span>
+      <audio id="audio32" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio32')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Until I Found You – Stephen Sanchez</span>
+      <audio id="audio33" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio33')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Without You – Mariah Carey</span>
+      <audio id="audio34" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio34')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>You And I – Michael Bublé</span>
+      <audio id="audio35" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio35')">▶ Escuchar</button>
+    </div>
+  </section>
+
+  <!-- Pop / Rock Clásico -->
+  <section class="genero-seccion">
+    <h2>Pop / Rock Clásico (Inglés y Español)</h2>
+
+    <div class="cancion-card">
+      <span>Careless Whisper – George Michael</span>
+      <audio id="audio36" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio36')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Every Breath You Take – The Police</span>
+      <audio id="audio37" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio37')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Hymn For The Weekend – Coldplay</span>
+      <audio id="audio38" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio38')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Lost On You – LP</span>
+      <audio id="audio39" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio39')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Love Me Like You Do – Ellie Goulding</span>
+      <audio id="audio40" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio40')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Será Porque Te Amo – Ricchi E Poveri</span>
+      <audio id="audio41" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio41')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Stand By Me – The Beatles</span>
+      <audio id="audio42" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio42')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Viva La Vida – Coldplay</span>
+      <audio id="audio43" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio43')">▶ Escuchar</button>
+    </div>
+  </section>
+
+  <!-- Regional Mexicana -->
+  <section class="genero-seccion">
+    <h2>Música Regional Mexicana (Mariachi, Norteño, Banda, Sierreño)</h2>
+
+    <div class="cancion-card">
+      <span>El Color De Tus Ojos – Banda MS / El Recodo</span>
+      <audio id="audio44" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio44')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>En Privado – Xavi</span>
+      <audio id="audio45" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio45')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>La Mejor De Todas – Banda El Recodo</span>
+      <audio id="audio46" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio46')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Me Gustas – Joan Sebastian</span>
+      <audio id="audio47" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio47')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Mi Razón De Ser (Versión Piano) – Banda MS</span>
+      <audio id="audio48" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio48')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Primera Cita – Carin León</span>
+      <audio id="audio49" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio49')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Que Vuelvas – Grupo Frontera & Carin León</span>
+      <audio id="audio50" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio50')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Si Te Pudiera Mentir – Marco Antonio Solís</span>
+      <audio id="audio51" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio51')">▶ Escuchar</button>
+    </div>
+  </section>
+
+  <!-- Jazz / Clásicos -->
+  <section class="genero-seccion">
+    <h2>Jazz / Traditional Pop / Clásicos</h2>
+
+    <div class="cancion-card">
+      <span>Fly Me To The Moon – Frank Sinatra</span>
+      <audio id="audio52" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio52')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>La Vie En Rose – Louis Armstrong / Edith Piaf</span>
+      <audio id="audio53" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio53')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>What A Wonderful World – Louis Armstrong</span>
+      <audio id="audio54" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio54')">▶ Escuchar</button>
+    </div>
+  </section>
+
+  <!-- Pop Latino / Urbano -->
+  <section class="genero-seccion">
+    <h2>Pop Latino / Urbano</h2>
+
+    <div class="cancion-card">
+      <span>Brillas – León Larregui</span>
+      <audio id="audio55" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio55')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Si Antes Te Hubiera Conocido – Karol G</span>
+      <audio id="audio56" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio56')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Despacito - Luis Fonsi</span>
+      <audio id="audio57" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio57')">▶ Escuchar</button>
+    </div>
+  </section>
+
+  <!-- Bachata -->
+  <section class="genero-seccion">
+    <h2>Bachata</h2>
+
+    <div class="cancion-card">
+      <span>Bachata Rosa (Versión Piano) – Juan Luis Guerra</span>
+      <audio id="audio58" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio58')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Darte Un Beso – Prince Royce</span>
+      <audio id="audio59" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio59')">▶ Escuchar</button>
+    </div>
+  </section>
+
+  <!-- Electrónica / Dance -->
+  <section class="genero-seccion">
+    <h2>Música Electrónica / Dance / Synth-Pop</h2>
+
+    <div class="cancion-card">
+      <span>Blinding Lights (Versión Piano) – The Weeknd</span>
+      <audio id="audio60" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio60')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Titanium – David Guetta ft. Sia</span>
+      <audio id="audio61" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio61')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>Unstoppable – Sia</span>
+      <audio id="audio62" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio62')">▶ Escuchar</button>
+    </div>
+
+    <div class="cancion-card">
+      <span>We Found Love – Rihanna ft. Calvin Harris</span>
+      <audio id="audio63" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio63')">▶ Escuchar</button>
+    </div>
+  </section>
+
+  <!-- Reggae -->
+  <section class="genero-seccion">
+    <h2>Reggae</h2>
+
+    <div class="cancion-card">
+      <span>Tú Sin Mí – Dread Mar I</span>
+      <audio id="audio64" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio64')">▶ Escuchar</button>
+    </div>
+  </section>
+
+  <!-- Cristiana -->
+  <section class="genero-seccion">
+    <h2>Música Cristiana</h2>
+
+    <div class="cancion-card">
+      <span>Un Pacto Con Dios – Rabito</span>
+      <audio id="audio65" src="TU_ENLACE_AUDIO.mp3">
+      <button class="btn-escuchar" onclick="toggleAudio('audio65')">▶ Escuchar</button>
+    </div>
+  </section>
+
+</main>
