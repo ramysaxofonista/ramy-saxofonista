@@ -1,3 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎷 RAMY Saxofonista</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: sans-serif;
+    }
+
+    body {
+      background-color: #000000;
+      color: #ffd700;
+      padding: 20px;
+      max-width: 950px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      border-bottom: 2px solid #ffd700;
+      padding-bottom: 20px;
+    }
+
+    header h1 {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 17px;
+      margin-bottom: 15px;
+      color: #ffec8b;
+    }
+
+    header input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ffd700;
+      background-color: #111;
+      color: #ffd700;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    .genero-seccion {
+      margin-bottom: 40px;
+    }
+
+    .genero-seccion h2 {
+      font-size: 22px;
+      margin-bottom: 18px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #333;
+      color: #ffec8b;
+    }
+
+    .cancion-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 10px;
+      border-bottom: 1px solid #222;
+      gap: 15px;
+    }
+
+    .cancion-card span {
+      font-size: 16px;
+      flex: 1;
+      text-align: left;
+    }
+
+    .btn-escuchar {
+      background-color: #ffd700;
+      color: #000;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 15px;
+      transition: all 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .btn-escuchar:hover {
+      background-color: #fff;
+      transform: scale(1.05);
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
 <header>
   <h1>🎷 RAMY Saxofonista</h1>
   <p>Música en vivo para bodas, XV años, aniversarios y eventos corporativos</p>
@@ -10,13 +113,11 @@ const temporizadores = {};
 function toggleAudio(idAudio) {
   const audio = document.getElementById(idAudio);
   
-  // Limpiar cualquier efecto anterior
   if (temporizadores[idAudio]) {
     clearInterval(temporizadores[idAudio]);
     delete temporizadores[idAudio];
   }
 
-  // Si está sonando → Detener con bajada suave
   if (!audio.paused) {
     let vol = audio.volume;
     temporizadores[idAudio] = setInterval(() => {
@@ -27,12 +128,10 @@ function toggleAudio(idAudio) {
         delete temporizadores[idAudio];
         audio.pause();
         audio.currentTime = 0;
-        audio.volume = 0; // Listo para subir después
+        audio.volume = 0;
       }
     }, 80);
-  } 
-  // Si está detenido → Reproducir con subida suave
-  else {
+  } else {
     audio.currentTime = 0;
     audio.volume = 0;
     audio.play();
@@ -58,25 +157,25 @@ function toggleAudio(idAudio) {
 
     <div class="cancion-card">
       <span>Así Fue – Juan Gabriel</span>
-      <audio id="audio1" src=https://drive.google.com/file/d/1RwrrCgvBOpc6VKyZJEmeC-cxteRRqnMv/view?usp=drive_link">
+      <audio id="audio1" src=https://drive.google.com/file/d/1RwrrCgvBOpc6VKyZJEmeC-cxteRRqnMv/view?usp=drive_link>
       <button class="btn-escuchar" onclick="toggleAudio('audio1')">▶ Escuchar</button>
     </div>
 
     <div class="cancion-card">
       <span>Cama Y Mesa – Roberto Carlos</span>
-      <audio id="audio2" src=https://drive.google.com/file/d/1OMKGz3FxApU6ZTNJtoAWDdx2MQhGZvhL/view?usp=drive_link>
+      <audio id="audio2" src="TU_ENLACE_AUDIO.mp3">
       <button class="btn-escuchar" onclick="toggleAudio('audio2')">▶ Escuchar</button>
     </div>
 
     <div class="cancion-card">
       <span>Historia Entre Tus Dedos – Gianluca Grignani</span>
-      <audio id="audio3" src=https://drive.google.com/file/d/1VvYxpCJfpQmxg2Ww9vhWir97enjsD-wb/view?usp=drive_link>
+      <audio id="audio3" src="TU_ENLACE_AUDIO.mp3">
       <button class="btn-escuchar" onclick="toggleAudio('audio3')">▶ Escuchar</button>
     </div>
 
     <div class="cancion-card">
       <span>Hasta Que Me Olvides – Luis Miguel</span>
-      <audio id="audio4" src=https://drive.google.com/file/d/1SfOhaJnFwNCBDun35naQRpkLnkbqkBG3/view?usp=drive_link>
+      <audio id="audio4" src="TU_ENLACE_AUDIO.mp3">
       <button class="btn-escuchar" onclick="toggleAudio('audio4')">▶ Escuchar</button>
     </div>
 
@@ -498,3 +597,6 @@ function toggleAudio(idAudio) {
   </section>
 
 </main>
+
+</body>
+</html>
