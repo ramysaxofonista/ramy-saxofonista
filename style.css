@@ -1,0 +1,44 @@
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#111;
+    color:white;
+    text-align:center;
+}
+
+header{
+    padding:40px 20px;
+}
+
+h1{
+    color:#d4af37;
+    font-size:48px;
+}
+
+p{
+    color:#ddd;
+}
+
+button{
+    background:#d4af37;
+    color:#111;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    margin:10px;
+}
+
+button:hover{
+    background:#f4d03f;
+}
+
+.cancion{
+    background:#222;
+    margin:15px auto;
+    padding:15px;
+    width:90%;
+    max-width:600px;
+    border-radius:10px;
+}
