@@ -79,7 +79,8 @@ function enviarWhatsApp() {
   
   let i = 1;
   selectedCheckboxes.forEach(box => {
-    mensaje += `${i}. ${box.value}%0A`;
+    mensaje += `${i}. ${box.value}
+    `;
     i++;
   });
 
