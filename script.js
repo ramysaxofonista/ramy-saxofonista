@@ -1,59 +1,53 @@
-let currentAudio = null;
-let currentButton = null;
-let fadeInterval = null;
-
-function togglePlay(audioId, btn) {
-  const audio = document.getElementById(audioId);
-
-  // Si hay otro audio sonando, pausarlo con Fade Out
-  if (currentAudio && currentAudio !== audio) {
-    fadeOutAndPause(currentAudio, currentButton);
-  }
-
-  if (audio.paused) {
-    fadeInAndPlay(audio, btn);
-  } else {
-    fadeOutAndPause(audio, btn);
-  }
-}
-
-function fadeInAndPlay(audio, btn) {
-  clearInterval(fadeInterval);
-  audio.volume = 0;
-  audio.play();
-  btn.textContent = "❚❚ Pausar";
-  btn.classList.add("reproduciendo");
-
-  currentAudio = audio;
-  currentButton = btn;
-
-  let volume = 0;
-  fadeInterval = setInterval(() => {
-    if (volume < 1) {
-      volume += 0.05;
-      audio.volume = Math.min(volume, 1);
-    } else {
-      clearInterval(fadeInterval);
-    }
-  }, 50); // Ajusta la velocidad del Fade In (50ms por paso)
-}
-
-function fadeOutAndPause(audio, btn) {
-  clearInterval(fadeInterval);
-  let volume = audio.volume;
-
-  fadeInterval = setInterval(() => {
-    if (volume > 0.05) {
-      volume -= 0.05;
-      audio.volume = Math.max(volume, 0);
-    } else {
-      audio.volume = 0;
+function togglePlay(button, audioId) {
+  const audioElement = document.getElementById(audioId);
+  
+  // Pausar otros audios si están sonando
+  document.querySelectorAll('audio').forEach(audio => {
+    if (audio !== audioElement) {
       audio.pause();
-      clearInterval(fadeInterval);
-      if (btn) {
-        btn.textContent = "▶ Escuchar";
-        btn.classList.remove("reproduciendo");
+      const otherBtn = audio.previousElementSibling;
+      if (otherBtn && otherBtn.classList.contains('play-btn')) {
+        otherBtn.innerHTML = '▶ Escuchar';
+        otherBtn.classList.remove('playing');
       }
     }
-  }, 50); // Ajusta la velocidad del Fade Out
+  });
+
+  // Alternar el audio clickeado
+  if (audioElement.paused) {
+    audioElement.play().catch(e => console.log("Agrega el archivo .mp3 correspondiente para que suene."));
+    button.innerHTML = '⏸ Pausar';
+    button.classList.add('playing');
+  } else {
+    audioElement.pause();
+    button.innerHTML = '▶ Escuchar';
+    button.classList.remove('playing');
+  }
+}
+
+function filterSongs() {
+  const input = document.getElementById('searchInput').value.toLowerCase();
+  const sections = document.querySelectorAll('.genre-section');
+
+  sections.forEach(section => {
+    let hasVisibleSongs = false;
+    const songItems = section.querySelectorAll('.song-item');
+
+    songItems.forEach(item => {
+      const songText = item.querySelector('.song-info').textContent.toLowerCase();
+      if (songText.includes(input)) {
+        item.style.display = 'flex';
+        hasVisibleSongs = true;
+      } else {
+        item.style.display = 'none';
+      }
+    });
+
+    // Oculta todo el género si no hay resultados en esa categoría
+    if (hasVisibleSongs) {
+      section.style.display = 'block';
+    } else {
+      section.style.display = 'none';
+    }
+  });
 }
