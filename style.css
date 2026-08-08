@@ -1,81 +1,117 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 body {
   background-color: #121212;
   color: #ffffff;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
 }
 
-header {
+.container {
+  width: 100%;
+  max-width: 800px;
+}
+
+.header {
   text-align: center;
   margin-bottom: 30px;
 }
 
-header h1 {
-  color: #ffcc00;
-  font-size: 2.2rem;
-  margin-bottom: 5px;
+.main-title {
+  color: #fbd000;
+  font-size: 2.8rem;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 1px;
 }
 
-header p {
-  color: #ccc;
-  font-size: 0.9rem;
+.subtitle {
+  color: #d1d1d1;
+  font-size: 1.1rem;
+  margin-top: 8px;
 }
 
-header input {
-  width: 90%;
-  max-width: 500px;
-  padding: 10px 15px;
-  margin-top: 15px;
-  border-radius: 20px;
-  border: none;
+.search-container {
+  margin-bottom: 40px;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 15px 25px;
+  border-radius: 30px;
+  border: 2px solid #333;
+  background-color: #ffffff;
+  color: #333;
   font-size: 1rem;
+  outline: none;
+  font-weight: bold;
 }
 
-.lista-canciones {
-  max-width: 700px;
-  margin: 0 auto;
+#searchInput:focus {
+  border-color: #fbd000;
 }
 
-.genero-seccion {
-  margin-bottom: 30px;
+.genre-section {
+  margin-bottom: 40px;
 }
 
-.genero-seccion h2 {
-  color: #ffcc00;
-  font-size: 1.3rem;
-  border-bottom: 1px solid #333;
-  padding-bottom: 8px;
+.genre-title {
+  color: #fbd000;
+  font-size: 1.5rem;
   margin-bottom: 15px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 5px;
 }
 
-.cancion-card {
+.song-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.song-item {
+  background-color: #1c1c1e;
+  border-radius: 8px;
+  padding: 12px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1e1e1e;
-  padding: 12px 18px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  gap: 15px;
+  border: 1px solid #2a2a2a;
 }
 
-.cancion-card span {
-  font-size: 0.95rem;
-  font-weight: 500;
+.song-info {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #e0e0e0;
+  flex: 1;
+  padding-right: 15px;
 }
 
-.btn-escuchar {
-  background-color: #ffcc00;
-  color: #000;
+.play-btn {
+  background-color: #fbd000;
+  color: #000000;
   border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
+  padding: 10px 20px;
+  border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
-  white-space: nowrap;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  min-width: 110px;
+  text-align: center;
 }
 
-.btn-escuchar:hover {
-  background-color: #e6b800;
+.play-btn:hover {
+  background-color: #e0b800;
+  transform: scale(1.02);
+}
+
+.play-btn.playing {
+  background-color: #fff1a0;
 }
