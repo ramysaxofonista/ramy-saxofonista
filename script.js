@@ -75,7 +75,9 @@ function enviarWhatsApp() {
     return;
   }
 
-  let mensaje = `Hola RAMY, soy *${clientName}*. Esta es mi selección de canciones para el evento:`;
+  let mensaje = `Hola RAMY, soy *${clientName}*. Esta es mi selección de canciones para el evento:
+
+`;
   
   let i = 1;
   selectedCheckboxes.forEach(box => {
