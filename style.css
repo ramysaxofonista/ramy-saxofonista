@@ -186,7 +186,7 @@ body {
   padding-right: 15px;
 }
 
-.play-btn {
+.play-btn { margin-left: auto; }
   background-color: #fbd000;
   color: #000000;
   border: none;
