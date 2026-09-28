@@ -75,20 +75,17 @@ function enviarWhatsApp() {
     return;
   }
 
-  let mensaje = `Hola RAMY, soy *${clientName}*. Esta es mi selección de canciones para el evento:
-
-`;
+  let mensaje = `Hola RAMY, soy *${clientName}*. Esta es mi selección de canciones para el evento:%0A%0A`;
   
   let i = 1;
   selectedCheckboxes.forEach(box => {
-    mensaje += `${i}. ${box.value}
-    `;
+    mensaje += `${i}. ${box.value}%0A`;
     i++;
   });
 
   // Reemplaza ESTE_NUMERO por tu número de WhatsApp real con código de país (ej. 5219991234567 para México)
-  const numeroWhatsApp = "529811415935"; 
-  const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+  const numeroWhatsApp = "521XXXXXXXXXX"; 
+  const url = `https://wa.me/${numeroWhatsApp}?text=${mensaje}`;
   
   window.open(url, '_blank');
 }
