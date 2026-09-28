@@ -84,7 +84,7 @@ function enviarWhatsApp() {
   });
 
   // Reemplaza ESTE_NUMERO por tu número de WhatsApp real con código de país (ej. 5219991234567 para México)
-  const numeroWhatsApp = "521XXXXXXXXXX"; 
+  const numeroWhatsApp = "529811415935"; 
   const url = `https://wa.me/${numeroWhatsApp}?text=${mensaje}`;
   
   window.open(url, '_blank');
